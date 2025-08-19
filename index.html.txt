@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>pH Checker สำหรับสัตว์น้ำ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 40px;
+      background-color: #f0f8ff;
+    }
+    h1 {
+      color: #0077aa;
+    }
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ตรวจสอบระดับ pH สำหรับสัตว์น้ำ</h1>
+  
+  <label for="phValue">กรอกค่า pH:</label>
+  <input type="number" id="phValue" step="0.1" placeholder="เช่น 7.0">
+  <button onclick="checkPH()">ตรวจสอบ</button>
+
+  <div id="result"></div>
+
+  <script>
+    function checkPH() {
+      const ph = parseFloat(document.getElementById("phValue").value);
+      const result = document.getElementById("result");
+
+      if (isNaN(ph)) {
+        result.textContent = "กรุณากรอกค่า pH ให้ถูกต้อง";
+        return;
+      }
+
+      let message = "";
+
+      if (ph <= 4.0) {
+        message = "เป็นจุดอันตราย ทำให้ปลาตายได้";
+      } else if (ph > 4.0 && ph <= 6.0) {
+        message = "ปลาบางชนิดอาจไม่ตาย แต่ผลผลิตต่ำ การเจริญเติบโตช้า การสืบพันธุ์หยุดชะงัก";
+      } else if (ph > 6.0 && ph <= 9.0) {
+        message = "ระดับที่เหมาะสมต่อการเพาะเลี้ยงสัตว์น้ำ";
+      } else if (ph > 9.0 && ph < 11.0) {
+        message = "ไม่เหมาะสมต่อการดำรงชีวิตของสัตว์น้ำหากอยู่นาน";
+      } else if (ph >= 11.0) {
+        message = "เป็นพิษต่อปลา";
+      } else {
+        message = "ข้อมูลไม่ครอบคลุมช่วงที่กรอก";
+      }
+
+      result.textContent = message;
+    }
+  </script>
+
+</body>
+</html>
